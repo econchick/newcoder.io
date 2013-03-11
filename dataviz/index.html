@@ -1,23 +1,195 @@
-{% extends 'layout.html' %}
+<!DOCTYPE html>
 
-{% block content %}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="author" content="Lynn Root">
+<meta name="description" content="Five Life Jackets to Throw at the New Coder - Python tutorials">
+<meta name="generator" content="mynt v0.2.2">
+
+<link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+
+
+<link rel="stylesheet" href="/assets/css/screen.css" type="text/css">
+<link rel="stylesheet"href="/assets/css/css3-github-ribbon.css" type="text/css" />
+<link rel="stylesheet" href="/assets/css/style.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/glyphicons.css" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700,300,200' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/assets/css/pygments2.css" type="text/css">
+<script src="/assets/js/modernizr.js"></script>
+
+
+    
+    <title>New Coder &ndash; five life jackets to throw at the new coder</title>
+</head>
+
+<body>
+    <a href="https://github.com/econchick/new-coder" class="github-ribbon">Contribute on GitHub</a>
+    <div id="container">
+        <div id="nav">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/tutorials/">Tutorials</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+            
+        </div>
+        
+        <div id="header">
+            <h1><a href="/">New C<span aria-hidden="true" class="icon" data-icon="&#xe308;">der</a></h1>
+            <h2>five life jackets to throw at the new coder</h2>
+        </div>
+
+        <div id="content">
+            
 <dl class="archives">
-    <h2><a href="{{ get_url("/dataviz") }}">Data Visualization</a></h2>
-    {% for post in posts %}
-        {% if 'intro-dataviz' in post.tags %}
+    <h2><a href="/dataviz">Data Visualization</a></h2>
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
             <dd>
                 <dl>
-                    <dd><a href="{{ get_url(post.url) }}"><b>{{ post.title }}</b></a></dd>
+                    <dd><a href="/Intro-DataViz/"><b>Introduction to the Data Visualization Tutorial</b></a></dd>
                 </dl>
             </dd>
-        {% endif %}
-        {% if 'DataViz' in post.tags %}
+        
+        
+    
+        
+        
             <dd>
                 <dl>
-                    <dd><a href="{{ get_url(post.url) }}"><b>{{ post.title }}</b></a> - {% if post.excerpt %}{{ post.excerpt }}{% endif %}</dd>
+                    <dd><a href="/Part-0-Setup-for-DataViz/"><b>Part 0: Setup</b></a> - Initial setup for our Data Visualization Tutorial.</dd>
                 </dl>
             </dd>
-        {% endif %}
-    {% endfor %}
+        
+    
+        
+        
+            <dd>
+                <dl>
+                    <dd><a href="/Part-1-Parse/"><b>Part 1: Parse</b></a> - Parse our sample SF crime data.</dd>
+                </dl>
+            </dd>
+        
+    
+        
+        
+            <dd>
+                <dl>
+                    <dd><a href="/Part-2-Graph/"><b>Part 2: Graph</b></a> - Graph our sample data with matplotlib.</dd>
+                </dl>
+            </dd>
+        
+    
+        
+        
+            <dd>
+                <dl>
+                    <dd><a href="/Part-3-Map/"><b>Part 3: Map</b></a> - Plot our sample data on Google Maps.</dd>
+                </dl>
+            </dd>
+        
+    
+        
+        
+            <dd>
+                <dl>
+                    <dd><a href="/Extended-DataViz/"><b>Extended</b></a> - How Data Visualization is used in real life, and where to go after finishing the tutorial.</dd>
+                </dl>
+            </dd>
+        
+    
 </dl>
-{% endblock %}
+
+        </div>
+        
+        <div id="footer">
+            <p>Copyright &copy; 2013 Lynn Root &ndash; powered by <a href="http://mynt.mirroredwhite.com/">mynt</a></p>
+        </div>
+    </div>
+</body>
+</html>
