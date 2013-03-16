@@ -18,8 +18,19 @@
 <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700,300,200' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/assets/css/pygments2.css" type="text/css">
 <script src="/assets/js/modernizr.js"></script>
+<script type="text/javascript">
 
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-39343031-1']);
+  _gaq.push(['_trackPageview']);
 
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
     
     <title>Part 1: Parse &ndash; New Coder</title>
 </head>
@@ -98,7 +109,7 @@
 </td></tr></table></div></div><h4>For the curious</h4>
 <p>If you are interested in understanding how docstrings work, Python’s PEP (Python Enhancement Proposals) documents spell out how one should craft his/her docstrings: <a href="http://www.python.org/dev/peps/pep-0008/">PEP8</a> and <a href="http://www.python.org/dev/peps/pep-0257/">PEP257</a>. This also gives you a peek at what is considered “Pythonic”.</p>
 
-<p>The difference between <code>&quot;&quot;&quot;docstrings&quot;&quot;&quot;</code> and <code># comments</code> have to do with who the reader will be. Within the a Python shell, if you call <code>help()</code> on a particular function or class, it will return the <code>&quot;&quot;&quot;docstring&quot;&quot;&quot;</code> that the developer has written. </p>
+<p>The difference between <code>&quot;&quot;&quot;docstrings&quot;&quot;&quot;</code> and <code># comments</code> have to do with who the reader will be. Within the a Python shell, if you call <code>help</code> on a particular function or class, it will return the <code>&quot;&quot;&quot;docstring&quot;&quot;&quot;</code> that the developer has written. </p>
 
 <p>There are also documentation programs that look specifically for <code>&quot;&quot;&quot;docstrings&quot;&quot;&quot;</code> to help the developer automatically produce documentation separated out of the code.  Within docstrings, it’s helpful to say imperatively what the function/method or class is supposed to do.  Examples of how the documented code should work can also be written in the docstrings (and, subsequently, tested).  <code># comments</code>, on the otherhand, are for those reading through the code — the comments are to simply say what a specific piece/line of code is meant to do. Inline <code># comments</code> are always appreciated by those reading through your code. Many developers also litter <code># TODO</code> or <code># FIXME</code> statements for combing through later.</p>
 <h4>Back to the tutorial</h4>
@@ -130,7 +141,7 @@
     <span class="k">return</span> <span class="n">parsed_data</span>
 </pre></div>
 </td></tr></table></div></div>
-<p>Thankfully, there are a lot of built-in methods that Python has that we can use to do all the steps that we’ve outlined with our comments.  The first one we’ll use is <code>open()</code> and pass <code>raw_file</code> to it, which we got from defining our own parameters in the <code>parse()</code> function:</p>
+<p>Thankfully, there are a lot of built-in methods that Python has that we can use to do all the steps that we’ve outlined with our comments.  The first one we’ll use is <code>open</code> and pass <code>raw_file</code> to it, which we got from defining our own parameters in the <code>parse</code> function:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">opened_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">raw_file</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div></div>
@@ -138,9 +149,9 @@
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">csv_data</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">opened_file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div></div>
-<p>Here, <code>csv.reader()</code> is a function of the CSV module. We gave it two parameters: opened_file, and delimiter. It’s easy to get confused when parameters and variables share names. In <code>delimiter=delimiter</code>, the first &#39;delimiter&#39; is referring to the name of the parameter that <code>csv.reader()</code> needs; the second &#39;delimiter&#39; refers to the argument that our <code>parse()</code> function takes in.</p>
+<p>Here, <code>csv.reader</code> is a function of the CSV module. We gave it two parameters: opened_file, and delimiter. It’s easy to get confused when parameters and variables share names. In <code>delimiter=delimiter</code>, the first &#39;delimiter&#39; is referring to the name of the parameter that <code>csv.reader</code> needs; the second &#39;delimiter&#39; refers to the argument that our <code>parse</code> function takes in.</p>
 
-<p>Just to quickly put these two lines in our <code>parse()</code> function: </p>
+<p>Just to quickly put these two lines in our <code>parse</code> function: </p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -182,7 +193,7 @@
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">fields</span> <span class="o">=</span> <span class="n">csv_data</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div></div><h4>For the curious</h4>
-<p>We were able to call the <code>.next()</code> method on <code>csv_data</code> because it is a generator. We just call <code>.next()</code> once, since headers are in the 1st and only row of our CSV file.</p>
+<p>We were able to call the <code>.next</code> method on <code>csv_data</code> because it is a generator. We just call <code>.next</code> once, since headers are in the 1st and only row of our CSV file.</p>
 <h4>Back to the tutorial</h4>
 <p>Let’s loop over each row now that we have the headers properly taken care of. With each loop, we will add a dictionary that maps a field (those column headers) to the value in the CSV cell.</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
@@ -346,7 +357,7 @@ Type <span class="s2">&quot;help&quot;</span>, <span class="s2">&quot;copyright&
 &gt;&gt;&gt;
 </pre></div>
 </td></tr></table></div></div>
-<p>Those numbers from calling the <code>id()</code> function reflect where the variable is saved in the computer’s memory.  Since they are the <em>same</em> number, Python has set up a reference from <code>copy_my_file</code> to the same location that <code>parse.MY_FILE</code> was saved. No need to allocate new space in memory for what is essentially the same variable with a different name.</p>
+<p>Those numbers from calling the <code>id</code> function reflect where the variable is saved in the computer’s memory.  Since they are the <em>same</em> number, Python has set up a reference from <code>copy_my_file</code> to the same location that <code>parse.MY_FILE</code> was saved. No need to allocate new space in memory for what is essentially the same variable with a different name.</p>
 
 <p>Let’s play with the parser function a bit:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1

@@ -18,8 +18,19 @@
 <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700,300,200' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/assets/css/pygments2.css" type="text/css">
 <script src="/assets/js/modernizr.js"></script>
+<script type="text/javascript">
 
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-39343031-1']);
+  _gaq.push(['_trackPageview']);
 
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
     
     <title>Part 2: Giantbomb API &ndash; New Coder</title>
 </head>
@@ -90,9 +101,9 @@
 
 <p>This method is a generator function (a clue is the <code>yield</code> statement instead of a <code>return</code> statement).</p>
 <h4>For the curious</h4>
-<p>The <code>yield</code> keyword is similar to <code>return</code>. The <code>parse()</code> function, specifically the <code>for deal in selector</code> bit, we’ve essentially built a generator (it will generate data on the fly). StackOverflow has a good <a href="http://stackoverflow.com/questions/231767/the-python-yield-keyword-explained">explanation</a> of what’s happening in our function: The first time the function will run, it will run from the beginning until it hits yield, then it’ll return the first value of the loop. Then, each other call will run the loop you have written in the function one more time, and return the next value, until there is no value to return.  The generator is considered empty once the function runs but does not hit yield anymore. It can be because the loop had come to ends, or because you do not satisfy a “if/else” anymore. </p>
+<p>The <code>yield</code> keyword is similar to <code>return</code>. The <code>parse</code> function, specifically the <code>for deal in selector</code> bit, we’ve essentially built a generator (it will generate data on the fly). StackOverflow has a good <a href="http://stackoverflow.com/questions/231767/the-python-yield-keyword-explained">explanation</a> of what’s happening in our function: The first time the function will run, it will run from the beginning until it hits yield, then it’ll return the first value of the loop. Then, each other call will run the loop you have written in the function one more time, and return the next value, until there is no value to return.  The generator is considered empty once the function runs but does not hit yield anymore. It can be because the loop had come to ends, or because you do not satisfy a “if/else” anymore. </p>
 <h4>Back to the tutorial</h4>
-<p>Follow the inline comments to undestand the process flow of <code>get_platforms()</code>:</p>
+<p>Follow the inline comments to undestand the process flow of <code>get_platforms</code>:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
