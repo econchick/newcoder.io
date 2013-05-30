@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-{% if site.feed %}
-    <feed xmlns="http://www.w3.org/2005/Atom">
-        <title>{{ site.title }}</title>
+
+    <!DOCTYPE disabled [<!ELEMENT disabled EMPTY>]>
+    <disabled/>
+     <title>{{ site.title }}</title>
         {% if site.subtitle %}<subtitle>{{ site.subtitle }}</subtitle>{% endif %}
         <link rel="alternate" href="{{ get_url(absolute = true) }}" />
         <link rel="self" href="{{ get_url('feed.xml', true) }}" type="application/atom+xml" />
