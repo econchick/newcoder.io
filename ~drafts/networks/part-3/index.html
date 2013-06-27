@@ -18,6 +18,7 @@
 <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700,300,200' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/assets/css/pygments2.css" type="text/css">
 <script src="/assets/js/modernizr.js"></script>
+<script type="text/javascript">var WePay = WePay || {};WePay.load_widgets = WePay.load_widgets || function() { };WePay.widgets = WePay.widgets || [];WePay.widgets.push( {object_id: 1824739360,widget_type: "donation_campaign",anchor_id: "wepay_widget_anchor_51bc7f731bfd4",widget_options: {list_suggested_donations: true,allow_cover_fee: true,enable_recurring: true,allow_anonymous: true,button_text: "Donate"}});if (!WePay.script) {WePay.script = document.createElement('script');WePay.script.type = 'text/javascript';WePay.script.async = true;WePay.script.src = 'https://static.wepay.com/min/js/widgets.v2.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(WePay.script, s);} else if (WePay.load_widgets) {WePay.load_widgets();}</script>
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -44,13 +45,14 @@
                 <li><a href="/about/">About</a></li>
                 <li><a href="/tutorials/">Tutorials</a></li>
                 <li><a href="/Contact/">Contact</a></li>
+                <li><a href="https://www.wepay.com/donations/1824739360">Donate</a></li>
             </ul>
             
         </div>
         
         <div id="header">
             <h1><a href="/">New C<span aria-hidden="true" class="icon" data-icon="&#xe308;">der</a></h1>
-            <h2>five life jackets to throw to the new coder</h2>
+            <h1>five life jackets to throw to the new coder</h1>
         </div>
 
         <div id="content">
@@ -63,7 +65,7 @@
         <div class="body">
             <p>Writing our <code>bot.py</code> module.</p>
 <h3 id="module-setup">Module Setup</h3>
-<p>With <code>bot.py</code>, we only need to leverage modules from Twisted library.  There’s no expectation that you would know which modules from Twisted to import; this is just an introduction to the package’s vast capabilities in Networking.  In this package, we are taking advantage of Twisted’s <code>log</code> module for logging rather than using Python’s <code>logging</code> module, <code>protocol</code> module to create our bot factory (to be explain), as well as leverage Twisted’s <code>irc</code> module so we don’t reinvent the wheel.</p>
+<p>With <code>bot.py</code>, we only need to leverage modules from the Twisted library.  There’s no expectation that you would know which modules from Twisted to import; this is just an introduction to the package’s vast capabilities in networking.  In this package, we are taking advantage of Twisted’s <code>log</code> module for logging rather than using Python’s <code>logging</code> module, <code>protocol</code> module to create our bot factory (to be explained), as well as leverage Twisted’s <code>irc</code> module so we don’t reinvent the wheel.</p>
 
 <p>Note that the order of import statements are alphabetical per <a href="http://www.python.org/dev/peps/pep-0008/">PEP-8</a>, Python’s style guide.</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
@@ -73,7 +75,7 @@
 <span class="kn">from</span> <span class="nn">twisted.words.protocols</span> <span class="kn">import</span> <span class="n">irc</span>
 </pre></div>
 </td></tr></table></div></div><h3 id="scaffolding-for-bot.py-module">Scaffolding for bot.py module</h3>
-<p>We will be writing two classes: <code>TalkBackBot</code> and <code>TalkBackBotFactory</code>.  The factory class actually instantiates the bot, while the bot class defines the bot’s behavior.</p>
+<p>We will write two classes: <code>TalkBackBot</code> and <code>TalkBackBotFactory</code>.  The factory class actually instantiates the bot, while the bot class defines the bot’s behavior.</p>
 
 <p>Let’s first start off with the bot factory scaffolding with comments and docstrings:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
@@ -147,7 +149,7 @@
 
 <p>First, we’ll code out the bot factory, then return to the bot itself.</p>
 <h3 id="talkbackbotfactory-class">TalkBackBotFactory class</h3>
-<p>We first define the protocol that the Factory will make with:</p>
+<p>We first define the protocol that the Factory will make the bot with:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -161,7 +163,7 @@
 </td></tr></table></div></div>
 <p>This calls an internal method within the <code>twisted.internet.protocol</code> library, <code>buildProtocol()</code>.  This instantiates a <code>ClientFactory</code> to be able to handle input of an incoming server connection.</p>
 
-<p>Notice that in our import statements, we didn’t import our <code>settings.ini</code> file.  When we run our program, the plugin that we write (detailed in <a href="/networks/part-4">Part 4</a>) will pick up the file.  With that, our <code>TalkBackBotFactory</code> will initialize with the settings:</p>
+<p>Notice that in our import statements, we didn’t import our <code>settings.ini</code> file.  When we run our program, the plugin that we write (detailed in <a href="/networks/part-4">Part 4</a>) will pick up the file.  With that, our <code>TalkBackBotFactory</code> initializes with the settings:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -187,7 +189,7 @@
 </td></tr></table></div></div>
 <p>The initialization of our factory is pretty self explanatory – the factory is created with settings that are defined in <code>settings.ini</code>.  When we write our plugin in <a href="/networks/part-4">part 4</a>, we will code out the passing of those configuration settings into our factory.</p>
 <h3 id="talkbackbot-class">TalkBackBot class</h3>
-<p>Now for the <code>TalkBackBot</code> class.  Revisiting the scaffolding we did earlier, we will define 5 functions for our class, which will setup the behavior for our bot:</p>
+<p>Now for the <code>TalkBackBot</code> class.  Revisiting the scaffolding we did earlier, we define 5 functions for our class, which will setup the behavior for our bot:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -295,9 +297,9 @@
 <span class="s">&quot;repr() shows quotes: &#39;test1&#39;; str() doesn&#39;t: test2&quot;</span>
 </pre></div>
 </td></tr></table></div></div>
-<p>To understand <code>repr()</code> versus <code>str()</code> better, <a href="http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python">StackOverflow</a> as a great explanation.</p>
+<p>To understand <code>repr()</code> versus <code>str()</code> better, <a href="http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python">StackOverflow</a> has a great explanation.</p>
 
-<p>Next, we will define our <code>signedOn</code> function:</p>
+<p>Next, we define our <code>signedOn</code> function:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3

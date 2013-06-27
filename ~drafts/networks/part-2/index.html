@@ -18,6 +18,7 @@
 <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700,300,200' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/assets/css/pygments2.css" type="text/css">
 <script src="/assets/js/modernizr.js"></script>
+<script type="text/javascript">var WePay = WePay || {};WePay.load_widgets = WePay.load_widgets || function() { };WePay.widgets = WePay.widgets || [];WePay.widgets.push( {object_id: 1824739360,widget_type: "donation_campaign",anchor_id: "wepay_widget_anchor_51bc7f731bfd4",widget_options: {list_suggested_donations: true,allow_cover_fee: true,enable_recurring: true,allow_anonymous: true,button_text: "Donate"}});if (!WePay.script) {WePay.script = document.createElement('script');WePay.script.type = 'text/javascript';WePay.script.async = true;WePay.script.src = 'https://static.wepay.com/min/js/widgets.v2.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(WePay.script, s);} else if (WePay.load_widgets) {WePay.load_widgets();}</script>
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -44,13 +45,14 @@
                 <li><a href="/about/">About</a></li>
                 <li><a href="/tutorials/">Tutorials</a></li>
                 <li><a href="/Contact/">Contact</a></li>
+                <li><a href="https://www.wepay.com/donations/1824739360">Donate</a></li>
             </ul>
             
         </div>
         
         <div id="header">
             <h1><a href="/">New C<span aria-hidden="true" class="icon" data-icon="&#xe308;">der</a></h1>
-            <h2>five life jackets to throw to the new coder</h2>
+            <h1>five life jackets to throw to the new coder</h1>
         </div>
 
         <div id="content">
@@ -65,7 +67,7 @@
 
 <p><strong>Module Location:</strong> <a href="https://github.com/econchick/new-coder/blob/master/network/talkback/quotation_picker.py">new-coder/network/talkback/quotation_picker.py</a></p>
 <h3 id="module-setup">Module Setup</h3>
-<p>We want to select from our list of quotes at random, so we will use the <code>random</code> library from Python’s standard library and import the choice function:</p>
+<p>We want to select from our list of quotes at random, so we use the <code>random</code> library from Python’s standard library and import the choice function:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span>
 </pre></div>
 </td></tr></table></div></div>
@@ -95,7 +97,7 @@
         <span class="c"># &lt;--snip--&gt;</span>
 </pre></div>
 </td></tr></table></div></div>
-<p>We will want to initialize our class with the file that we plan to pull a quote from.  If you remember from earlier tutorials, Python has a few keywords and built-in functions for file input/output.  We will open our quote file using the <code>with</code> keyword, which will implicitly take care of closing our quote file when we are done with the <code>with</code> loop:</p>
+<p>We want to initialize our class with the file that we plan to pull a quote from.  If you remember from earlier tutorials, Python has a few keywords and built-in functions for file input/output.  We open our quote file using the <code>with</code> keyword, which will implicitly take care of closing our quote file when we are done with the <code>with</code> loop:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -113,7 +115,7 @@
 <span class="c"># &lt;--snip--&gt;</span>
 </pre></div>
 </td></tr></table></div></div>
-<p>Within the <code>with</code> keyword, we label the opened file, <code>open(quotes_filename)</code> as <code>quotes_file</code>.  We will then read each line item in the <code>quotes_file</code> (each quote is on its own line) with another built-in function, <code>readlines</code>, and assign it to <code>self.quotes</code>.  This variable, <code>self.quotes</code>, will be accessible to the rest of the <code>QuotationPicker</code> class, including our next function, <code>pick</code>.  </p>
+<p>Within the <code>with</code> keyword, we label the opened file, <code>open(quotes_filename)</code> as <code>quotes_file</code>.  We then read each line item in the <code>quotes_file</code> (each quote is on its own line) with another built-in function, <code>readlines</code>, and assign it to <code>self.quotes</code>.  This variable, <code>self.quotes</code>, will be accessible to the rest of the <code>QuotationPicker</code> class, including our next function, <code>pick</code>.  </p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -131,7 +133,7 @@
 <span class="c"># &lt;--snip--&gt;</span>
 </pre></div>
 </td></tr></table></div></div>
-<p>For our <code>pick</code> function, we will use the <code>choice</code> function we imported from <code>random</code> to randomly pick a quote from <code>self.quotes</code> variable we initialized in <code>__init__</code>.  To be safe, we will use a built-in string method, <code>strip</code>, to clean up any extraneous blank spaces and null characters that may be before or after the quote itself. </p>
+<p>For our <code>pick</code> function, we use the <code>choice</code> function we imported from <code>random</code> to randomly pick a quote from <code>self.quotes</code> variable we initialized in <code>__init__</code>.  To be safe, we use a built-in string method, <code>strip</code>, to clean up any extraneous blank spaces and whitespace characters that may be before or after the quote itself. </p>
 
 <p>Rather than creating a variable and assigning it <code>choice(self.quotes).strip()</code> and then returning the variable, we simplify it by just returning <code>choice(self.quotes).strip()</code>.</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1

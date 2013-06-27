@@ -18,6 +18,7 @@
 <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700,300,200' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/assets/css/pygments2.css" type="text/css">
 <script src="/assets/js/modernizr.js"></script>
+<script type="text/javascript">var WePay = WePay || {};WePay.load_widgets = WePay.load_widgets || function() { };WePay.widgets = WePay.widgets || [];WePay.widgets.push( {object_id: 1824739360,widget_type: "donation_campaign",anchor_id: "wepay_widget_anchor_51bc7f731bfd4",widget_options: {list_suggested_donations: true,allow_cover_fee: true,enable_recurring: true,allow_anonymous: true,button_text: "Donate"}});if (!WePay.script) {WePay.script = document.createElement('script');WePay.script.type = 'text/javascript';WePay.script.async = true;WePay.script.src = 'https://static.wepay.com/min/js/widgets.v2.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(WePay.script, s);} else if (WePay.load_widgets) {WePay.load_widgets();}</script>
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -44,13 +45,14 @@
                 <li><a href="/about/">About</a></li>
                 <li><a href="/tutorials/">Tutorials</a></li>
                 <li><a href="/Contact/">Contact</a></li>
+                <li><a href="https://www.wepay.com/donations/1824739360">Donate</a></li>
             </ul>
             
         </div>
         
         <div id="header">
             <h1><a href="/">New C<span aria-hidden="true" class="icon" data-icon="&#xe308;">der</a></h1>
-            <h2>five life jackets to throw to the new coder</h2>
+            <h1>five life jackets to throw to the new coder</h1>
         </div>
 
         <div id="content">
@@ -61,9 +63,9 @@
         </div>
         
         <div class="body">
-            <p>Writing our <code>twistd</code> command line plugin for easy deployment.  When all finished, we will be able to run <code>twistd -n twsrs</code> from our command line to simply run our bot.</p>
+            <p>Creating our <code>twistd</code> command line plugin for easy deployment.</p>
 <h3 id="module-setup">Module Setup</h3>
-<p>To setup our plugin, we will need a way to parse our settings configuration.  For this, we will use <code>ConfigParser</code> from Python’s standard library:</p>
+<p>To setup our plugin, we need a way to parse our settings configuration.  For this, we use <code>ConfigParser</code> from Python’s standard library:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">ConfigParser</span> <span class="kn">import</span> <span class="n">ConfigParser</span>
@@ -149,7 +151,7 @@
 <span class="c"># &lt;--snip--&gt;</span>
 </pre></div>
 </td></tr></table></div></div>
-<p>To go along with our <code>TalkBackBotService</code>, we will create a Maker class (similar to having our bot Factory class to create our bot) that constructs our service.</p>
+<p>To go along with our <code>TalkBackBotService</code>, we create a Maker class (similar to having our bot Factory class to create our bot) that constructs our service.</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -249,7 +251,7 @@
 <span class="c"># &lt;--snip--&gt;</span>
 </pre></div>
 </td></tr></table></div></div>
-<p>First, we instantiate <code>ConfigParser()</code>, and read from our <code>options</code> parameter that we pass in to grab <code>&#39;config&#39;</code> in our options.  This is essentially grabbing and reading our <code>settings.ini</code> file.  Next, we create a list comprehension for <code>triggers</code>.  We will strip the null characters for every trigger we find in our settings.ini file.   Looking at the file, we are able to pull out only the triggers with the <code>config.get(&#39;talkback&#39;, &#39;triggers&#39;)</code> function:</p>
+<p>First, we instantiate <code>ConfigParser()</code>, and read from our <code>options</code> parameter that we pass in to grab <code>&#39;config&#39;</code> in our options.  This is essentially grabbing and reading our <code>settings.ini</code> file.  Next, we create a list comprehension for <code>triggers</code>.  We strip the null characters for every trigger we find in our settings.ini file.   Looking at the file, we are able to pull out only the triggers with the <code>config.get(&#39;talkback&#39;, &#39;triggers&#39;)</code> function:</p>
 <pre><code># &lt;--snip--&gt;
 
 [talkback]
@@ -297,7 +299,7 @@ triggers =
 <span class="c"># &lt;--snip--&gt;</span>
 </pre></div>
 </td></tr></table></div></div>
-<p>Rather than having <code>BotServiceMaker</code> inherit from both <code>IServiceMaker</code> and <code>IPlugin</code>, we use <code>@implementer</code> as a marker to implement an interface.  We basically say, “Please give me an object which implements <code>IServiceMaker</code> and <code>IPlugin</code> for object type <code>BotServiceMaker</code>”.  It’s essentially an adaptor that tells one object to perform a task for another object.  <code>IServiceMaker</code> gives us the ability to use <code>tapname</code>, <code>description</code>, <code>options</code>, and the function <code>makeService</code>, while <code>IPlugin</code> needs to be implemented for any and every plugin written for Twisted.  You can read more about Twisted’s interfaces <a href="http://twistedmatrix.com/documents/current/core/howto/components.html">here</a>.</p>
+<p>Rather than having <code>BotServiceMaker</code> inherit from both <code>IServiceMaker</code> and <code>IPlugin</code>, we use <code>@implementer</code> as a marker saying “this class implements these interfaces”.  You can read more about Twisted’s interfaces <a href="http://twistedmatrix.com/documents/current/core/howto/components.html">here</a>.</p>
 <h3 id="options-class">Options class</h3>
 <p>This is pretty simple: we need to tell our Twisted application about the options it can handle:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
@@ -327,7 +329,7 @@ triggers =
 <h3 id="talkbackbotservice-class">TalkBackBotService class</h3>
 <p>Our <code>BotServiceMaker.makeService</code> method returns an instance of <code>TalkBackBotService</code> with parameters grabbed from our configuration, definied in <code>settings.ini</code>.  Now let’s implement our <code>TalkBackBotService</code> class.</p>
 
-<p>We’ll first create a private variable <code>_bot</code> with <code>None</code> (private is denoted with a leading <code>_</code>, and while it’s not meant to be publically accessible, it isn’t enforced). </p>
+<p>We’ll first create a private variable <code>_bot</code> with value <code>None</code> (private is denoted with a leading <code>_</code>, and while it’s not meant to be publically accessible, it isn’t enforced). </p>
 
 <p>We also initialize the class:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -423,7 +425,7 @@ triggers =
 
 <p>Next, we instantiate the <code>QuotePicker</code> class with our quote file with defining <code>quotes</code>.  This pulls in all our quotes within <code>quotes.txt</code> file.  </p>
 
-<p>Now we need to define a <code>client</code> that basically constructs an endpoint based on a string with <code>clientFromString</code> function.  The <code>clientFromString</code> takes in the <code>reactor</code> that we imported, and the endpoint, which is grabbed from the endpoint string defined in our <code>settings.ini</code> file.  The <code>reactor</code> Twisted’s event loop driving its applications.  More about Twisted’s <code>reactor</code> object is detailed in its <a href="http://twistedmatrix.com/documents/current/core/howto/reactor-basics.html">howto documentation</a>.</p>
+<p>Now we need to define a <code>client</code> that basically constructs an endpoint based on a string with <code>clientFromString</code> function.  The <code>clientFromString</code> takes in the <code>reactor</code> that we imported, and the endpoint, which is grabbed from the endpoint string defined in our <code>settings.ini</code> file.  The <code>reactor</code> Twisted’s event loop driving your Twisted applications.  More about Twisted’s <code>reactor</code> object is detailed in its <a href="http://twistedmatrix.com/documents/current/core/howto/reactor-basics.html">howto documentation</a>.</p>
 
 <p>We then create a <code>factory</code> variable that instantiates <code>TalkBackBotFactory</code> defined in <code>bot.py</code> which passes in the appropriate parameters.</p>
 
@@ -447,7 +449,7 @@ triggers =
 <span class="c"># &lt;--snip--&gt;</span>
 </pre></div>
 </td></tr></table></div></div>
-<p>It is a <a href="http://twistedmatrix.com/documents/current/core/howto/defer.html">deferred</a> (a callback which we put off until later) that is triggered when the service closes our connection between the client and server (if <code>_bot</code> is not <code>None, and if the bot is connected</code>).</p>
+<p>It is a <a href="http://twistedmatrix.com/documents/current/core/howto/defer.html">deferred</a> (a callback which we put off until later) that is triggered when the service closes our connection between the client and server (if <code>_bot</code> is not <code>None</code>, and if the bot is connected).</p>
 
 <p>Near the home stretch!</p>
 <h3 id="constructing-botservicemaker">Constructing BotServiceMaker</h3>

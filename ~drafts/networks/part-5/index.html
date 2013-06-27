@@ -18,6 +18,7 @@
 <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700,300,200' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/assets/css/pygments2.css" type="text/css">
 <script src="/assets/js/modernizr.js"></script>
+<script type="text/javascript">var WePay = WePay || {};WePay.load_widgets = WePay.load_widgets || function() { };WePay.widgets = WePay.widgets || [];WePay.widgets.push( {object_id: 1824739360,widget_type: "donation_campaign",anchor_id: "wepay_widget_anchor_51bc7f731bfd4",widget_options: {list_suggested_donations: true,allow_cover_fee: true,enable_recurring: true,allow_anonymous: true,button_text: "Donate"}});if (!WePay.script) {WePay.script = document.createElement('script');WePay.script.type = 'text/javascript';WePay.script.async = true;WePay.script.src = 'https://static.wepay.com/min/js/widgets.v2.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(WePay.script, s);} else if (WePay.load_widgets) {WePay.load_widgets();}</script>
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -44,13 +45,14 @@
                 <li><a href="/about/">About</a></li>
                 <li><a href="/tutorials/">Tutorials</a></li>
                 <li><a href="/Contact/">Contact</a></li>
+                <li><a href="https://www.wepay.com/donations/1824739360">Donate</a></li>
             </ul>
             
         </div>
         
         <div id="header">
             <h1><a href="/">New C<span aria-hidden="true" class="icon" data-icon="&#xe308;">der</a></h1>
-            <h2>five life jackets to throw to the new coder</h2>
+            <h1>five life jackets to throw to the new coder</h1>
         </div>
 
         <div id="content">
@@ -83,7 +85,7 @@
 </td></tr></table></div></div><h4 id="testquotepicker-class">TestQuotePicker class</h4>
 <p>Our TestQuotePicker class inherits Twisted’s <code>unittest.TestCase</code> class, which is based off of Python’s <code>unittest</code> library, but adds the ability to include Deferreds into our test suite (although deferreds are not needed when simply testing our <code>QuotePicker</code>).</p>
 
-<p>When we run our tests, <code>TestCase</code> will run  every function that starts with <code>test</code>; in this case, it will run <code>test_pick</code>:</p>
+<p>When we run our tests, <code>TestCase</code> will run every function that starts with <code>test</code>; in this case, it runs <code>test_pick</code>:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -123,7 +125,7 @@
 
 <p>Only one function is defined in our <code>quote_picker.py</code> (not including the init function), <code>pick</code>; therefore, we only have one test case, <code>test_pick</code>.</p>
 
-<p>Within our <code>test_pick</code> function, we will instantiate <code>QuotePicker</code>.  Notice that we use the module <code>os</code> to grab the <code>test_quotes.txt</code> to pass into the <code>QuotePicker</code> class.  Rather than hard-coding the path to the quotes file, we take advantage of the <code>os</code> standard module to:</p>
+<p>Within our <code>test_pick</code> function, we instantiate <code>QuotePicker</code>.  Notice that we use the module <code>os</code> to grab the <code>test_quotes.txt</code> to pass into the <code>QuotePicker</code> class.  Rather than hard-coding the path to the quotes file, we take advantage of the <code>os</code> standard module to:</p>
 
 <ol>
 <li>grab the directory name that the current file is located (<code>os.path.dirname(__file__)</code>), and</li>
@@ -150,8 +152,376 @@
 <span class="c"># &lt;--snip--&gt;</span>
 </pre></div>
 </td></tr></table></div></div><h4 id="fakepicker-class">FakePicker class</h4>
-<p><strong>TODO</strong></p>
+<p>Remember from the <a href="/%7Edrafts/networks/intro/">intro</a> that unit tests should be independent of other unit tests.  Therefore, for the sake of our testing, we’ll define a contant, <code>QUOTE</code> to “pick”, and create a dummy class for picking a quote, <code>FakePicker</code>:</p>
+<div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># &lt;--snip--&gt;</span>
 
+<span class="n">QUOTE</span> <span class="o">=</span> <span class="s">&quot;Nobody minds having what is too good for them. ~ Jane Austen&quot;</span>
+
+<span class="k">class</span> <span class="nc">FakePicker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Always return the same quote.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quote</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quote</span> <span class="o">=</span> <span class="n">quote</span>
+
+    <span class="k">def</span> <span class="nf">pick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quote</span>
+
+<span class="c"># &lt;--snip--&gt;</span>
+</pre></div>
+</td></tr></table></div></div><h4 id="testtalkbackbot">TestTalkBackBot</h4>
+<p>Let’s first start with the scaffolding for this unit test:</p>
+<div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># &lt;--snip--&gt;</span>
+
+<span class="k">class</span> <span class="nc">TestTalkBackBot</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">SynchronousTestCase</span><span class="p">):</span>
+    <span class="n">_channel</span> <span class="o">=</span> <span class="s">&quot;#testchannel&quot;</span>
+    <span class="n">_username</span> <span class="o">=</span> <span class="s">&quot;tester&quot;</span>
+    <span class="n">_us</span> <span class="o">=</span> <span class="s">&#39;tbb&#39;</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_privmsgNoTrigger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Shouldn&#39;t send a quote if message does not match trigger&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">test_privmsgWithTrigger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Should send a quote if message matches trigger&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">test_privmsgAttribution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;If someone attributes the bot in public, they get a public response.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">test_privmsgPrivateMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;For private messages, should send quote directly to user&quot;&quot;&quot;</span>
+</pre></div>
+</td></tr></table></div></div>
+<p>Notice that we inherit from <code>unittest.SynchronousTestCase</code> for our class.  It simply extends <code>unittest.TestCase</code> from Python’s standard library by adding some helpers, including logging, warning integration, monkey-patching (really!), and others.</p>
+
+<p>Again, since unit tests need to be independent of each other, we will feed our <code>TestTalkBackBot</code> some dummy private variables:</p>
+<div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">_channel</span> <span class="o">=</span> <span class="s">&quot;#testchannel&quot;</span>
+<span class="n">_username</span> <span class="o">=</span> <span class="s">&quot;tester&quot;</span>
+<span class="n">_us</span> <span class="o">=</span> <span class="s">&#39;tbb&#39;</span>
+</pre></div>
+</td></tr></table></div></div>
+<p>Next, we create a function to actually setup the bot:</p>
+<div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># &lt;--snip--&gt;</span>
+
+<span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">factory</span> <span class="o">=</span> <span class="n">TalkBackBotFactory</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_us</span><span class="p">,</span>
+        <span class="s">&#39;Jane Doe&#39;</span><span class="p">,</span>
+        <span class="n">FakePicker</span><span class="p">(</span><span class="n">QUOTE</span><span class="p">),</span>
+        <span class="p">[</span><span class="s">&#39;twss&#39;</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">bot</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">buildProtocol</span><span class="p">((</span><span class="s">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span> <span class="o">=</span> <span class="n">proto_helpers</span><span class="o">.</span><span class="n">StringTransport</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">makeConnection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">signedOn</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">joined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="c"># &lt;--snip--&gt;</span>
+</pre></div>
+</td></tr></table></div></div>
+<p>The <code>setUp</code> is from Python’s <code>unittest</code> library that gets called to prepare our test fixture. Our <code>setUp</code> function calls the <code>TalkBackBotFactory</code> and initializes it with our dummy private variables we declared earlier.</p>
+
+<p>We’re also building a fake protocol based off of localhost, <code>127.0.0.1</code> on port 0 in order to talk to our server.  We create and connect to <code>fake_transport</code> – <code>fake_transport</code> emulates a network connection for us without actually connecting to a network.</p>
+
+<p>In continuing our <code>setUp</code>, we call <code>signedOn</code> and <code>joined</code> to connect to our fake IRC server, and clear any data received by the <code>fake_transport</code>.</p>
+
+<p>Onto our first test: <code>test_privmsgNoTrigger</code>.  We want to make sure our bot doesn’t respond with a quote if the message received does not match any listed trigger:</p>
+<div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># &lt;--snip--&gt;</span>
+
+<span class="k">def</span> <span class="nf">test_privmsgNoTrigger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Shouldn&#39;t send a quote if message does not match trigger&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">privmsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">,</span> <span class="s">&quot;hi&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span><span class="o">.</span><span class="n">value</span><span class="p">())</span>
+
+<span class="c"># &lt;--snip--&gt;</span>
+</pre></div>
+</td></tr></table></div></div>
+<p>Notice how the function starts with <code>test_</code>; this is standard with Python unit tests.  When we run our test suite, it will pick up on all functions that begin with <code>test_</code>.</p>
+
+<p>Now to test that our bot sends a quote if a message matches a trigger:</p>
+<div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># &lt;--snip--&gt;</span>
+
+<span class="k">def</span> <span class="nf">test_privmsgWithTrigger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Should send a quote if message matches trigger&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">privmsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">,</span> <span class="s">&quot;twss&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+        <span class="s">&#39;PRIVMSG {channel} :{username}: {quote}</span><span class="se">\r\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">QUOTE</span>
+        <span class="p">),</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span><span class="o">.</span><span class="n">value</span><span class="p">())</span>
+
+<span class="c"># &lt;--snip--&gt;</span>
+</pre></div>
+</td></tr></table></div></div>
+<p>The <code>assertEqual</code> checks to see if the message, populated by <code>channel</code>, <code>username</code>, and <code>quote</code>, is what is actually received by our fake transport.</p>
+
+<p>Our next test will be testing when someone attributes the bot in the channel:</p>
+<div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># &lt;--snip--&gt;</span>
+
+<span class="k">def</span> <span class="nf">test_privmsgAttribution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;If someone attributes the bot in public, they get a public response.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">privmsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_us</span> <span class="o">+</span> <span class="s">&#39;: foo&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+        <span class="s">&#39;PRIVMSG {channel} :{username}: {quote}</span><span class="se">\r\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">QUOTE</span>
+        <span class="p">),</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span><span class="o">.</span><span class="n">value</span><span class="p">())</span>
+
+<span class="c"># &lt;--snip--&gt;</span>
+</pre></div>
+</td></tr></table></div></div>
+<p>This just tests if a user pings our bot via the channel we’re in, and makes sure that the bot responds with a quote.</p>
+
+<p>Our last test makes sure that we respond to a private message (via <code>/msg</code> or <code>/query</code>):</p>
+<div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># &lt;--snip--&gt;</span>
+
+<span class="k">def</span> <span class="nf">test_privmsgPrivateMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;For private messages, should send quote directly to user&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">privmsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_us</span><span class="p">,</span> <span class="s">&quot;hi&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+        <span class="s">&#39;PRIVMSG {username} :{quote}</span><span class="se">\r\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">QUOTE</span>
+        <span class="p">),</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+    <span class="p">)</span>
+</pre></div>
+</td></tr></table></div></div>
+<p>The complete <code>test_talkbackbot.py</code> module:</p>
+<div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twisted.test</span> <span class="kn">import</span> <span class="n">proto_helpers</span>
+<span class="kn">from</span> <span class="nn">twisted.trial</span> <span class="kn">import</span> <span class="n">unittest</span>
+
+<span class="kn">from</span> <span class="nn">talkback.bot</span> <span class="kn">import</span> <span class="n">TalkBackBotFactory</span>
+
+
+<span class="n">QUOTE</span> <span class="o">=</span> <span class="s">&quot;Nobody minds having what is too good for them. ~ Jane Austen&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">FakePicker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Always return the same quote.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quote</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quote</span> <span class="o">=</span> <span class="n">quote</span>
+
+    <span class="k">def</span> <span class="nf">pick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quote</span>
+
+
+<span class="k">class</span> <span class="nc">TestTalkBackBot</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">SynchronousTestCase</span><span class="p">):</span>
+    <span class="n">_channel</span> <span class="o">=</span> <span class="s">&quot;#testchannel&quot;</span>
+    <span class="n">_username</span> <span class="o">=</span> <span class="s">&quot;tester&quot;</span>
+    <span class="n">_us</span> <span class="o">=</span> <span class="s">&#39;tbb&#39;</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">factory</span> <span class="o">=</span> <span class="n">TalkBackBotFactory</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_us</span><span class="p">,</span>
+            <span class="s">&#39;Jane Doe&#39;</span><span class="p">,</span>
+            <span class="n">FakePicker</span><span class="p">(</span><span class="n">QUOTE</span><span class="p">),</span>
+            <span class="p">[</span><span class="s">&#39;twss&#39;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bot</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">buildProtocol</span><span class="p">((</span><span class="s">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span> <span class="o">=</span> <span class="n">proto_helpers</span><span class="o">.</span><span class="n">StringTransport</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">makeConnection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">signedOn</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">joined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">test_privmsgNoTrigger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Shouldn&#39;t send a quote if message does not match trigger&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">privmsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">,</span> <span class="s">&quot;hi&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span><span class="o">.</span><span class="n">value</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">test_privmsgWithTrigger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Should send a quote if message matches trigger&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">privmsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">,</span> <span class="s">&quot;twss&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="s">&#39;PRIVMSG {channel} :{username}: {quote}</span><span class="se">\r\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">QUOTE</span>
+            <span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span><span class="o">.</span><span class="n">value</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">test_privmsgAttribution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;If someone attributes the bot in public, they get a public response.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">privmsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_us</span> <span class="o">+</span> <span class="s">&#39;: foo&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="s">&#39;PRIVMSG {channel} :{username}: {quote}</span><span class="se">\r\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">QUOTE</span>
+            <span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span><span class="o">.</span><span class="n">value</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">test_privmsgPrivateMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;For private messages, should send quote directly to user&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">privmsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_us</span><span class="p">,</span> <span class="s">&quot;hi&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="s">&#39;PRIVMSG {username} :{quote}</span><span class="se">\r\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">QUOTE</span>
+            <span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fake_transport</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+        <span class="p">)</span>
+</pre></div>
+</td></tr></table></div></div>
 <p>Our final step: <a href="/%7Edrafts/networks/part-6/">running our bot and the test suite &rarr;</a></p>
 
         </div>
