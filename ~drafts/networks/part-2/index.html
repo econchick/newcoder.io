@@ -65,15 +65,15 @@
         <div class="body">
             <p>Walkthrough of the pseudo-random quotation picker.</p>
 
-<p><strong>Module Location:</strong> <a href="https://github.com/econchick/new-coder/blob/master/network/talkback/quotation_picker.py">new-coder/network/talkback/quotation_picker.py</a></p>
+<p>Module Location: <a href="https://github.com/econchick/new-coder/blob/master/network/talkback/quote_picker.py">new-coder/network/talkback/quote_picker.py</a></p>
 <h3 id="module-setup">Module Setup</h3>
 <p>We want to select from our list of quotes at random, so we use the <code>random</code> library from Python’s standard library and import the choice function:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span>
 </pre></div>
 </td></tr></table></div></div>
 <p>This module does not generate or select quotes at “true” randomness.  The <a href="http://docs.python.org/2/library/random.html"><code>random</code></a> module in Python generates pseudo-random number based off of the <a href="http://en.wikipedia.org/wiki/Mersenne_twister">Mersenne twister</a>.  The <code>choice</code> method uses <code>random()</code> to generate a pseudo-random number between 0 and 1, multiply it by the number of items in the list to choose from, and index into the list.</p>
-<h3 id="quotationpicker-class">QuotationPicker class</h3>
-<p>Next, we need to define the behavior of how we want to grab a quote that our bot uses.  We’ll create a class, <code>class QuotationPicker(object):</code> with two functions, <code>__init__</code> and <code>pick</code>:</p>
+<h3 id="quotepicker-class">QuotePicker class</h3>
+<p>Next, we need to define the behavior of how we want to grab a quote that our bot uses.  We’ll create a class, <code>class QuotePicker(object):</code> with two functions, <code>__init__</code> and <code>pick</code>:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -86,10 +86,10 @@
 10
 11</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># &lt;--snip--&gt;</span>
 
-<span class="k">class</span> <span class="nc">QuotationPicker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">QuotePicker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quotes_filename</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize our QuotationPicker class&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Initialize our QuotePicker class&quot;&quot;&quot;</span>
         <span class="c"># &lt;--snip--&gt;</span>
 
     <span class="k">def</span> <span class="nf">pick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -108,7 +108,7 @@
 8</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># &lt;--snip--&gt;</span>
 
 <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quotes_filename</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Initialize our QuotationPicker class&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Initialize our QuotePicker class&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">quotes_filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">quotes_file</span><span class="p">:</span>
         <span class="c"># &lt;--snip--&gt;</span>
 
@@ -126,7 +126,7 @@
 8</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># &lt;--snip--&gt;</span>
 
 <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quotes_filename</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Initialize our QuotationPicker class&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Initialize our QuotePicker class&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">quotes_filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">quotes_file</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quotes</span> <span class="o">=</span> <span class="n">quotes_file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
 
@@ -151,7 +151,7 @@
 <span class="c"># &lt;--snip--&gt;</span>
 </pre></div>
 </td></tr></table></div></div>
-<p>The whole <code>quotation_picker.py</code> module put together:</p>
+<p>The whole <code>quote_picker.py</code> module put together:</p>
 <div class="code"><div><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -167,10 +167,10 @@
 13</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span>
 
 
-<span class="k">class</span> <span class="nc">QuotationPicker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">QuotePicker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quotes_filename</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize our QuotationPicker class&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Initialize our QuotePicker class&quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">quotes_filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">quotes_file</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">quotes</span> <span class="o">=</span> <span class="n">quotes_file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
 
